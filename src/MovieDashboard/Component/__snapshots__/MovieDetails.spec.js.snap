@@ -1,0 +1,38 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Get Movie Details should Match the snapshot 1`] = `
+Array [
+  <div>
+    <table>
+      <tr>
+        <th>
+          Movie name
+        </th>
+        <th>
+          ID
+        </th>
+        <th>
+          Total tickets
+        </th>
+        <th>
+          Booked
+        </th>
+      </tr>
+      <tr>
+        <td>
+          Movie5
+        </td>
+        <td>
+          624158496f047803e8ae1eb8
+        </td>
+        <td>
+          40
+        </td>
+        <td>
+          10
+        </td>
+      </tr>
+    </table>
+  </div>,
+]
+`;
