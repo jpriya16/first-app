@@ -6,8 +6,6 @@ import BookTicket from "./MovieDashboard/Component/BookTicket";
 function App() {
   return (
       <div>
-
-
       <MovieDashboard />
       </div>
 

@@ -1,6 +1,6 @@
 import React from "react";
 import {useState} from "react";
-import axios from "axios";
+import {updateTicket} from "./MovieService";
 
 export default function BookTicket(movies,UpdateMovieDetails){
     const [MovieId, setMovieId] = useState('')
@@ -8,47 +8,66 @@ export default function BookTicket(movies,UpdateMovieDetails){
     const [Book,setBook] = useState(false)
     const [message,setMessage] = useState('')
 
+
     const handleBooKTicket = () => {
         setBook(true);
         BookTicketForMovie(movies);
         setNumberOfTickets(0);
         setMovieId('');
-        setMessage('')
         setBook(false)
 
     }
 
+    const bookTicketWithData = async (MovieId,newMovie) => {
+        return await updateTicket(MovieId,newMovie)
+    }
 
     const BookTicketForMovie = (movies) => {
         let movie = null;
+        let diff = 0;
+        let total = 0;
+        let booked = 0;
         for (let key in movies) {
-            if(movies[key]._id === MovieId)
-                console.log("movie present",movies[key])
-            movie =  movies[key];
+            if(movies[key]){
+                if(movies[key]._id === MovieId) {
+                    console.log("movie present", movies[key])
+                    movie = movies[key];
+                    total = Number(movie.total_tickets);
+                    booked = Number(movie.booked_tickets);
+                    diff = total - (NumberOfTickets + booked)
+                }
+            }
         }
 
-        let total = Number(movie.total_tickets);
-        let book = Number(movie.booked_tickets);
-        let diff = total - ( NumberOfTickets + book)
 
-        if(!movie)
+
+        if(movie == null)
             setMessage('Invalid Movie Id ' + MovieId)
-        else if(diff < 0)
-            setMessage('requested no of ticket is not available')
+        else if(diff < 0){
+            setMessage('requested no of ticket is not available for Movie Id ' + MovieId)}
         else if (movie && diff >= 0) {
                 let newMovie = {
                     "name": movie.name,
                     "total_tickets": total,
-                    "booked_tickets": book + NumberOfTickets
+                    "booked_tickets": booked + NumberOfTickets
                 }
+                bookTicketWithData(MovieId, newMovie).then(r =>{
+                    if (r){
+                        UpdateMovieDetails()
+                        setMessage('Tickets booked for Movie Id : '+ MovieId +'Successfully')}
+                }).catch(e=>{
 
-                axios.put(`https://crudcrud.com/api/6c48e9c143e84e19908760bef335c664/movies/` + MovieId, newMovie).then(response => {
-                     setMessage('tickets booked Successfully')
-                     UpdateMovieDetails("test")
-                    }
-                ).catch(error => {
-                    setMessage('try booking after some time')
+                        setMessage('try booking after some time')
                 })
+                // axios.put(`https://crudcrud.com/api/c52d5cdcc84e415e80d8f2b006cddc0b/movies/` + MovieId, newMovie).then(response => {
+                //     UpdateMovieDetails()
+                //     setMessage('Tickets booked for Movie Id : '+ MovieId +'Successfully')
+                //     }
+                // ).catch(error => {
+                //     setMessage('try booking after some time')
+                // })
+
+
         }
     }
 
@@ -57,11 +76,11 @@ export default function BookTicket(movies,UpdateMovieDetails){
             <label>MOVIE DASHBOARD</label>
             <br/><br/>
             <label>MOVIE ID</label>
-            <input placeholder="Movie Id" value={MovieId} onChange={e=>setMovieId(e.target.value)}></input>
+            <input data-testid ="movieId" placeholder="Movie Id" value={MovieId} onChange={e=>setMovieId(e.target.value)}></input>
             <label>Number of tickets to book</label>
-            <input type="text" pattern="[0-9]*" value={NumberOfTickets} placeholder="no of tickets" onChange={e=>setNumberOfTickets(Number(e.target.value))}></input>
-            <button onClick={handleBooKTicket}>Book</button>
-            { Book || <label>{message}</label> }
+            <input data-testid="noOfTicket" type="text" pattern="[0-9]*" value={NumberOfTickets} placeholder="no of tickets" onChange={e=>setNumberOfTickets(Number(e.target.value))}></input>
+            <button data-testid="bookButton" id ="bookbtn" onClick={handleBooKTicket}>Book</button>
+            { Book || <label>{message}</label>}
         </div>
     )
 }

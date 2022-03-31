@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Book ticket should match the snapshot 1`] = `
+Array [
+  <div>
+    <label>
+      MOVIE DASHBOARD
+    </label>
+    <br />
+    <br />
+    <label>
+      MOVIE ID
+    </label>
+    <input
+      data-testid="movieId"
+      onChange={[Function]}
+      placeholder="Movie Id"
+      value=""
+    />
+    <label>
+      Number of tickets to book
+    </label>
+    <input
+      data-testid="noOfTicket"
+      onChange={[Function]}
+      pattern="[0-9]*"
+      placeholder="no of tickets"
+      type="text"
+      value={0}
+    />
+    <button
+      data-testid="bookButton"
+      id="bookbtn"
+      onClick={[Function]}
+    >
+      Book
+    </button>
+  </div>,
+]
+`;

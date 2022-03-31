@@ -12,13 +12,12 @@ export default function MovieDashboard(){
 
     useEffect(async () => {
         setMovies(await getMovies());
-    },[])
+    },[]) // when i give it as movies, there is more infinite calls.
 
-    const updateMovieDetails = async () => {
+     const updateMovieDetails = async () => {
         let movieData = await getMovies();
         setMovies(movieData)
     }
-
 
     return(<div>
         {BookTicket(Movies,updateMovieDetails)}

@@ -36,6 +36,7 @@ describe('getTicketSummary', () => {
     it('should display the booked ticket count',()=>{
         let mockComponent = renderer.create(TicketSummary(movies))
         expect( mockComponent.root.findByProps({id: "bookedTicket"}).children).toEqual(["Booked Count: ","50"])
+
     })
 
 
