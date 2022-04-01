@@ -76,9 +76,9 @@ export default function BookTicket(movies,UpdateMovieDetails){
             <label>MOVIE DASHBOARD</label>
             <br/><br/>
             <label>MOVIE ID</label>
-            <input data-testid ="movieId" placeholder="Movie Id" value={MovieId} onChange={e=>setMovieId(e.target.value)}></input>
+            <input data-testid ="movieId" id ="movieId" placeholder="Movie Id" value={MovieId} onChange={e=>setMovieId(e.target.value)}></input>
             <label>Number of tickets to book</label>
-            <input data-testid="noOfTicket" type="text" pattern="[0-9]*" value={NumberOfTickets} placeholder="no of tickets" onChange={e=>setNumberOfTickets(Number(e.target.value))}></input>
+            <input data-testid="noOfTicket" id="noOfTicket" type="text" pattern="[0-9]*" value={NumberOfTickets} placeholder="no of tickets" onChange={e=>setNumberOfTickets(Number(e.target.value))}></input>
             <button data-testid="bookButton" id ="bookbtn" onClick={handleBooKTicket}>Book</button>
             { Book || <label>{message}</label>}
         </div>

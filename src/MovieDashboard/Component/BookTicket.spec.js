@@ -68,7 +68,8 @@ describe("Book ticket",() => {
         const button = screen.getByTestId("bookButton")
         userEvent.click(button)
 
-        //expect(updateTicket).toHaveBeenCalledTimes(1)            //  could not check that. throwing error.
+        //expect(result).toHaveBeenCalledTimes(1)            //  could not check that. throwing error.
+        // try to check for change the movie list
         expect(screen.getByTestId("noOfTicket")).toHaveValue("0")
         expect(screen.getByTestId("movieId")).toHaveValue("")
 
